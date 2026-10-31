@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="hy">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TableBook – Սեղանի ամրագրում</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+Armenian:wght@300;400;500&family=Noto+Serif+Armenian:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="monogram">TB</span>
+      <span class="gold-text">Table<b>Book</b></span>
+    </div>
+    <nav id="nav" class="nav hidden">
+      <button class="navlink active" data-view="book">Ամրագրել</button>
+      <button class="navlink" data-view="mine">Իմ ամրագրումները</button>
+      <span class="user" id="userName"></span>
+      <button class="btn ghost small" id="logoutBtn">Ելք</button>
+    </nav>
+  </header>
+
+  <!-- ===== Մուտք / Գրանցում ===== -->
+  <div id="authView">
+    <section class="auth-hero">
+      <div class="auth">
+        <div class="hero">
+          <div class="ornament left">Հիմնադրված է 1998</div>
+          <h1><small>Ռեստորան</small><span class="grad">«Արարատ»</span></h1>
+          <p>Դասական հայկական խոհանոց, ընտիր գինիներ և անթերի սպասարկում։ Ամրագրեք Ձեր սեղանը մի քանի վայրկյանում։</p>
+          <ul class="facts">
+            <li><span>Աշխատանքային ժամեր</span>Ամեն օր 12:00 – 23:00</li>
+            <li><span>Հասցե</span>Աբովյան 12, Երևան</li>
+            <li><span>Հեռախոս</span>+374 10 123 456</li>
+          </ul>
+        </div>
+
+        <section class="card authcard framed">
+          <div class="ornament">Բարի գալուստ</div>
+          <h2 class="authtitle">Ձեր անձնական էջը</h2>
+          <div class="tabs">
+            <button class="tab active" data-tab="login">Մուտք</button>
+            <button class="tab" data-tab="register">Գրանցում</button>
+          </div>
+
+          <form id="loginForm" class="form" novalidate>
+            <label>Էլ. փոստ
+              <input type="email" name="email" required autocomplete="username" placeholder="anun@example.am">
+            </label>
+            <label>Գաղտնաբառ
+              <input type="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+            </label>
+            <p class="error" id="loginError"></p>
+            <button class="btn primary" type="submit">Մուտք գործել</button>
+            <p class="hint">Փորձնական հաշիվ՝ <code>demo@tablebook.am</code> / <code>demo1234</code></p>
+          </form>
+
+          <form id="registerForm" class="form hidden" novalidate>
+            <label>Անուն Ազգանուն
+              <input type="text" name="name" required autocomplete="name" placeholder="Արամ Պետրոսյան">
+            </label>
+            <label>Էլ. փոստ
+              <input type="email" name="email" required autocomplete="username" placeholder="anun@example.am">
+            </label>
+            <label>Հեռախոս
+              <input type="tel" name="phone" autocomplete="tel" placeholder="+374 99 123456">
+            </label>
+            <div class="pair">
+              <label>Գաղտնաբառ
+                <input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="մին. 6 նիշ">
+              </label>
+              <label>Կրկնել
+                <input type="password" name="password2" required autocomplete="new-password">
+              </label>
+            </div>
+            <p class="error" id="registerError"></p>
+            <button class="btn primary" type="submit">Ստեղծել հաշիվ</button>
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature"><div class="num gold-text">I</div><h4>Խորոված կրակի վրա</h4><p>Ընտիր միս՝ փայտածուխի վրա պատրաստված մեր շեֆի կողմից։</p></div>
+      <div class="feature"><div class="num gold-text">II</div><h4>Գինու հավաքածու</h4><p>Արենի, Վայոց Ձոր և ավելի քան 40 ընտիր տեսակ։</p></div>
+      <div class="feature"><div class="num gold-text">III</div><h4>Կենդանի երաժշտություն</h4><p>Ուրբաթ և շաբաթ երեկոյան՝ դուդուկ և ջութակ։</p></div>
+    </section>
+
+    <section class="offers-wrap">
+      <div class="section-head">
+        <div class="ornament">Հատուկ առաջարկներ</div>
+        <h2>Ակցիաներ և նվերներ</h2>
+      </div>
+      <div class="offers" data-offers></div>
+    </section>
+
+    <section class="menu">
+      <div class="section-head">
+        <div class="ornament">Ճաշացանկ</div>
+        <h2>Շեֆի ընտրությունը</h2>
+      </div>
+      <div class="dishes">
+        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700&h=525&fit=crop&q=75" alt="Խորոված կողիկներ"></div><figcaption><b>Խորոված կողիկներ</b><i></i><span>6 500 ֏</span></figcaption></figure>
+        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=700&h=525&fit=crop&q=75" alt="Տավարի սթեյք"></div><figcaption><b>Տավարի սթեյք</b><i></i><span>8 900 ֏</span></figcaption></figure>
+        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&h=525&fit=crop&q=75" alt="Սաղմոն գրիլ"></div><figcaption><b>Սաղմոն գրիլ</b><i></i><span>7 200 ֏</span></figcaption></figure>
+        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=700&h=525&fit=crop&q=75" alt="Ամառային աղցան"></div><figcaption><b>Ամառային աղցան</b><i></i><span>2 800 ֏</span></figcaption></figure>
+        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&h=525&fit=crop&q=75" alt="Շոկոլադե տորթ"></div><figcaption><b>Շոկոլադե տորթ</b><i></i><span>2 400 ֏</span></figcaption></figure>
+        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700&h=525&fit=crop&q=75" alt="Ծիրանի կոկտեյլ"></div><figcaption><b>Ծիրանի կոկտեյլ</b><i></i><span>3 000 ֏</span></figcaption></figure>
+      </div>
+    </section>
+
+    <footer class="footer">TableBook · Ռեստորան «Արարատ» · Աբովյան 12, Երևան</footer>
+  </div>
+
+  <!-- ===== Ամրագրում ===== -->
+  <main id="bookView" class="app hidden">
+    <section class="banner" style="--img:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&h=500&fit=crop&q=75')">
+      <div>
+        <div class="ornament left">Սեղանի ամրագրում</div>
+        <h1 id="greeting">Բարև</h1>
+        <p>Ընտրեք օրը, ժամը և Ձեր նախընտրած սեղանը։</p>
+      </div>
+    </section>
+
+    <section class="card search framed">
+      <form id="searchForm" class="row">
+        <label>Ամսաթիվ
+          <input type="date" name="date" required>
+        </label>
+        <label>Ժամ
+          <select name="time" required></select>
+        </label>
+        <label>Անձերի քանակ
+          <select name="guests" required></select>
+        </label>
+        <label>Գոտի
+          <select name="area">
+            <option value="">Բոլորը</option>
+            <option value="inside">Սրահ</option>
+            <option value="window">Պատուհանի մոտ</option>
+            <option value="terrace">Տեռաս</option>
+          </select>
+        </label>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="planhead">
+        <h3>Սեղանների դասավորություն</h3>
+        <div class="legend">
+          <span><i class="dot free"></i>ազատ</span>
+          <span><i class="dot busy"></i>զբաղված</span>
+          <span><i class="dot small"></i>չի համապատասխանում</span>
+          <span><i class="dot sel"></i>ընտրված</span>
+        </div>
+      </div>
+      <p class="planinfo" id="planInfo"></p>
+      <div id="floor" class="floor"></div>
+    </section>
+
+    <section class="card framed">
+      <div class="ornament">Հաստատում</div>
+      <div id="summary" class="summary muted">Խնդրում ենք ընտրել ազատ սեղան դասավորությունից։</div>
+      <label class="block">Նշումներ (ըստ ցանկության)
+        <textarea id="notes" rows="2" maxlength="300" placeholder="օր.՝ ծննդյան օր, մանկական աթոռ, ալերգիաներ …"></textarea>
+      </label>
+      <p class="error" id="bookError"></p>
+      <button class="btn primary big" id="bookBtn" disabled>Ամրագրել սեղանը</button>
+    </section>
+
+    <section class="offers-wrap inapp">
+      <div class="section-head">
+        <div class="ornament">Հատուկ առաջարկներ</div>
+        <h2>Ակցիաներ և նվերներ</h2>
+      </div>
+      <div class="offers" data-offers></div>
+    </section>
+  </main>
+
+  <!-- ===== Իմ ամրագրումները ===== -->
+  <main id="mineView" class="app hidden">
+    <section class="banner" style="--img:url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1600&h=500&fit=crop&q=75')">
+      <div>
+        <div class="ornament left">Ձեր այցելությունները</div>
+        <h1>Իմ ամրագրումները</h1>
+        <p>Կառավարեք Ձեր առաջիկա այցերը։</p>
+      </div>
+    </section>
+    <section class="card framed">
+      <h3>Առաջիկա</h3>
+      <div id="upcoming"></div>
+      <h3 class="mt">Անցած և չեղարկված</h3>
+      <div id="past"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
