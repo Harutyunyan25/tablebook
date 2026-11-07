@@ -21,7 +21,7 @@ Optional über einen lokalen Server (ohne Node/Python):
 powershell -ExecutionPolicy Bypass -File serve.ps1
 ```
 
-Dann http://localhost:8080 öffnen.
+Dann http://localhost:3000 öffnen.
 
 Demo-Zugang: `demo@tablebook.am` / `demo1234`
 

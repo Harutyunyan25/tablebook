@@ -1,6 +1,6 @@
 # Einfacher lokaler Webserver für TableBook (ohne Node/Python)
 # Start: powershell -ExecutionPolicy Bypass -File serve.ps1
-param([int]$Port = 8080)
+param([int]$Port = 3000)
 
 $root = $PSScriptRoot
 $listener = New-Object System.Net.HttpListener
