@@ -1,37 +1,58 @@
 # TableBook
 
-Restaurant-Reservierungs-App (Oberfläche auf Armenisch) für das Ristorante «Արարատ» – im klassischen Schwarz-Gold-Design.
+Ռեստորաններում սեղանի ամրագրման համակարգ՝ սև-ոսկեգույն դասական դիզայնով և փակ ադմին վահանակով։
 
-## Funktionen
+## Հնարավորություններ
 
-- Registrierung und Login (Passwörter werden mit SHA-256 + Salt gehasht)
-- Tisch reservieren: Datum, Uhrzeit, Personenzahl, Bereich (Saal, Fenster, Terrasse)
-- Interaktiver Tischplan mit freien, belegten und ausgewählten Tischen (Schutz vor Doppelbuchungen, 2 Std. pro Reservierung)
-- „Meine Reservierungen“ mit Stornieren
-- Aktionen: Kinderportionen, Geburtstag, Business-Lunch, Weinstunde
-- Geschenkkarten
+**Հաճախորդի համար**
+- Գրանցում և մուտք (գաղտնաբառերը պահվում են scrypt-ով, նստաշրջանը՝ HttpOnly cookie-ով)
+- Մի քանի ռեստորան՝ իրենց ճաշացանկով, աշխատանքային ժամերով և սեղաններով
+- Սեղանի ամրագրում՝ ռեստորան, ամսաթիվ, ժամ, անձերի քանակ, գոտի (սրահ, պատուհանի մոտ, տեռաս)
+- Ինտերակտիվ դասավորություն. կրկնակի ամրագրումները արգելվում են սերվերում (2 ժամ մեկ ամրագրման համար)
+- «Իմ ամրագրումները»՝ չեղարկման հնարավորությամբ
+- Ակցիաներ (մանկական չափաբաժիններ, ծննդյան օր, բիզնես ճաշ, գինու ժամ) և նվեր քարտեր
 
-## Starten
+**Ադմին վահանակ** (`/admin`, միայն ադմիններին)
+- Ամփոփում՝ այսօրվա ամրագրումներն ու հյուրերը
+- Բոլոր ամրագրումները՝ զտիչներով և կարգավիճակի փոփոխությամբ (ակտիվ, կայացած, չներկայացավ, չեղարկված)
+- Ռեստորանների ավելացում, խմբագրում, ջնջում
+- Սեղանների կառավարում
+- Ճաշացանկ՝ ուտեստների ավելացում, խմբագրում, ջնջում
+- Օգտատերեր՝ ադմինի դերի տրամադրում
+- Գաղտնաբառի փոփոխություն
 
-`index.html` im Browser öffnen – fertig.
+## Գործարկում
 
-Optional über einen lokalen Server (ohne Node/Python):
+Պետք է Node.js 22.13 կամ ավելի նոր (լրացուցիչ փաթեթներ պետք չեն)։
 
-```powershell
-powershell -ExecutionPolicy Bypass -File serve.ps1
+```bash
+npm start
 ```
 
-Dann http://localhost:3000 öffnen.
+Այնուհետև բացեք http://localhost:3000
 
-Demo-Zugang: `demo@tablebook.am` / `demo1234`
+## Ադմինի մուտք
 
-> Hinweis: Alle Daten (Konten, Reservierungen) werden im `localStorage` des Browsers gespeichert. Fotos stammen von Unsplash, Schriften von Google Fonts.
+Առաջին գործարկման ժամանակ ավտոմատ ստեղծվում է ադմինի հաշիվ.
 
-## Dateien
+- Էլ. փոստ՝ `admin@tablebook.am`
+- Գաղտնաբառ՝ `data/admin-credentials.txt` ֆայլում
 
-| Datei | Inhalt |
+Մուտք գործելուց հետո փոխեք գաղտնաբառը (**Ադմին վահանակ → Կարգավորումներ**) և ջնջեք այդ ֆայլը։
+
+Ձեր սեփական տվյալներով ադմին ստեղծելու համար առաջին գործարկումից առաջ սահմանեք փոփոխականները.
+
+```powershell
+$env:ADMIN_EMAIL="you@example.am"; $env:ADMIN_PASSWORD="ձեր-գաղտնաբառը"; npm start
+```
+
+Փորձնական օգտատեր՝ `demo@tablebook.am` / `demo1234`
+
+## Կառուցվածք
+
+| Ֆայլ | Բովանդակություն |
 |---|---|
-| `index.html` | Seitenstruktur |
-| `style.css` | Schwarz-Gold-Design |
-| `app.js` | Login, Reservierungslogik, Tischplan, Aktionen |
-| `serve.ps1` | Kleiner lokaler Webserver in PowerShell |
+| `server.js` | HTTP սերվեր, API, SQLite տվյալների բազա, մուտքի ստուգում |
+| `public/` | Հաճախորդի էջը (`index.html`, `app.js`, `style.css`) |
+| `private/` | Ադմին վահանակ. սերվերը տալիս է միայն ադմիններին |
+| `data/` | Տվյալների բազա և ադմինի գաղտնաբառ (GitHub չի ուղարկվում) |

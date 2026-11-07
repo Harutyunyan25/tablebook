@@ -18,29 +18,30 @@
     <nav id="nav" class="nav hidden">
       <button class="navlink active" data-view="book">Ամրագրել</button>
       <button class="navlink" data-view="mine">Իմ ամրագրումները</button>
+      <a class="navlink admin-link hidden" id="adminLink" href="/admin">Ադմին վահանակ</a>
       <span class="user" id="userName"></span>
       <button class="btn ghost small" id="logoutBtn">Ելք</button>
     </nav>
   </header>
 
   <!-- ===== Մուտք / Գրանցում ===== -->
-  <div id="authView">
+  <div id="authView" class="hidden">
     <section class="auth-hero">
       <div class="auth">
         <div class="hero">
-          <div class="ornament left">Հիմնադրված է 1998</div>
-          <h1><small>Ռեստորան</small><span class="grad">«Արարատ»</span></h1>
-          <p>Դասական հայկական խոհանոց, ընտիր գինիներ և անթերի սպասարկում։ Ամրագրեք Ձեր սեղանը մի քանի վայրկյանում։</p>
+          <div class="ornament left">Երևանի ընտիր ռեստորանները</div>
+          <h1><small>TableBook</small>Ամրագրեք սեղան <span class="grad">մեկ սեղմումով</span></h1>
+          <p>Ընտրեք ռեստորանը, օրը և Ձեր նախընտրած սեղանը։ Դասական խոհանոց, ընտիր գինիներ և անթերի սպասարկում։</p>
           <ul class="facts">
-            <li><span>Աշխատանքային ժամեր</span>Ամեն օր 12:00 – 23:00</li>
-            <li><span>Հասցե</span>Աբովյան 12, Երևան</li>
-            <li><span>Հեռախոս</span>+374 10 123 456</li>
+            <li><span>Ռեստորաններ</span><b id="factRestaurants">–</b></li>
+            <li><span>Ամրագրում</span>24/7 առցանց</li>
+            <li><span>Աջակցություն</span>+374 10 123 456</li>
           </ul>
         </div>
 
         <section class="card authcard framed">
           <div class="ornament">Բարի գալուստ</div>
-          <h2 class="authtitle">Ձեր անձնական էջը</h2>
+          <h2 class="authtitle" id="authTitle">Ձեր անձնական էջը</h2>
           <div class="tabs">
             <button class="tab active" data-tab="login">Մուտք</button>
             <button class="tab" data-tab="register">Գրանցում</button>
@@ -84,9 +85,17 @@
     </section>
 
     <section class="features">
-      <div class="feature"><div class="num gold-text">I</div><h4>Խորոված կրակի վրա</h4><p>Ընտիր միս՝ փայտածուխի վրա պատրաստված մեր շեֆի կողմից։</p></div>
-      <div class="feature"><div class="num gold-text">II</div><h4>Գինու հավաքածու</h4><p>Արենի, Վայոց Ձոր և ավելի քան 40 ընտիր տեսակ։</p></div>
-      <div class="feature"><div class="num gold-text">III</div><h4>Կենդանի երաժշտություն</h4><p>Ուրբաթ և շաբաթ երեկոյան՝ դուդուկ և ջութակ։</p></div>
+      <div class="feature"><div class="num gold-text">I</div><h4>Ընտրեք ռեստորանը</h4><p>Մեր գործընկեր ռեստորանները՝ մեկ վայրում։</p></div>
+      <div class="feature"><div class="num gold-text">II</div><h4>Ընտրեք սեղանը</h4><p>Ինտերակտիվ դասավորություն՝ իրական ժամանակում։</p></div>
+      <div class="feature"><div class="num gold-text">III</div><h4>Վայելեք երեկոն</h4><p>Ձեր սեղանը կսպասի Ձեզ՝ առանց հերթի։</p></div>
+    </section>
+
+    <section class="restaurants-wrap">
+      <div class="section-head">
+        <div class="ornament">Ռեստորաններ</div>
+        <h2>Մեր գործընկերները</h2>
+      </div>
+      <div class="restaurants" id="restaurantCards"></div>
     </section>
 
     <section class="offers-wrap">
@@ -100,33 +109,30 @@
     <section class="menu">
       <div class="section-head">
         <div class="ornament">Ճաշացանկ</div>
-        <h2>Շեֆի ընտրությունը</h2>
+        <h2 id="authMenuTitle">Շեֆի ընտրությունը</h2>
       </div>
-      <div class="dishes">
-        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700&h=525&fit=crop&q=75" alt="Խորոված կողիկներ"></div><figcaption><b>Խորոված կողիկներ</b><i></i><span>6 500 ֏</span></figcaption></figure>
-        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=700&h=525&fit=crop&q=75" alt="Տավարի սթեյք"></div><figcaption><b>Տավարի սթեյք</b><i></i><span>8 900 ֏</span></figcaption></figure>
-        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&h=525&fit=crop&q=75" alt="Սաղմոն գրիլ"></div><figcaption><b>Սաղմոն գրիլ</b><i></i><span>7 200 ֏</span></figcaption></figure>
-        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=700&h=525&fit=crop&q=75" alt="Ամառային աղցան"></div><figcaption><b>Ամառային աղցան</b><i></i><span>2 800 ֏</span></figcaption></figure>
-        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&h=525&fit=crop&q=75" alt="Շոկոլադե տորթ"></div><figcaption><b>Շոկոլադե տորթ</b><i></i><span>2 400 ֏</span></figcaption></figure>
-        <figure class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700&h=525&fit=crop&q=75" alt="Ծիրանի կոկտեյլ"></div><figcaption><b>Ծիրանի կոկտեյլ</b><i></i><span>3 000 ֏</span></figcaption></figure>
-      </div>
+      <div class="menu-tabs" id="authMenuTabs"></div>
+      <div class="dishes" id="authMenu"></div>
     </section>
 
-    <footer class="footer">TableBook · Ռեստորան «Արարատ» · Աբովյան 12, Երևան</footer>
+    <footer class="footer">TableBook · Ռեստորանների ամրագրման համակարգ · Երևան</footer>
   </div>
 
   <!-- ===== Ամրագրում ===== -->
   <main id="bookView" class="app hidden">
-    <section class="banner" style="--img:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&h=500&fit=crop&q=75')">
+    <section class="banner" id="bookBanner">
       <div>
-        <div class="ornament left">Սեղանի ամրագրում</div>
+        <div class="ornament left" id="bookRestName">Սեղանի ամրագրում</div>
         <h1 id="greeting">Բարև</h1>
-        <p>Ընտրեք օրը, ժամը և Ձեր նախընտրած սեղանը։</p>
+        <p id="bookRestInfo">Ընտրեք ռեստորանը, օրը, ժամը և Ձեր նախընտրած սեղանը։</p>
       </div>
     </section>
 
     <section class="card search framed">
-      <form id="searchForm" class="row">
+      <form id="searchForm" class="row five">
+        <label>Ռեստորան
+          <select name="restaurant" required></select>
+        </label>
         <label>Ամսաթիվ
           <input type="date" name="date" required>
         </label>
@@ -169,6 +175,14 @@
       </label>
       <p class="error" id="bookError"></p>
       <button class="btn primary big" id="bookBtn" disabled>Ամրագրել սեղանը</button>
+    </section>
+
+    <section class="menu inapp">
+      <div class="section-head">
+        <div class="ornament">Ճաշացանկ</div>
+        <h2 id="bookMenuTitle">Ճաշացանկ</h2>
+      </div>
+      <div class="dishes" id="bookMenu"></div>
     </section>
 
     <section class="offers-wrap inapp">

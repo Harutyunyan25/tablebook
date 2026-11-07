@@ -1,4 +1,6 @@
 .claude/
 .vscode/
+node_modules/
+data/
 .DS_Store
 Thumbs.db

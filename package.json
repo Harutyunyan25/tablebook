@@ -1,0 +1,16 @@
+{
+  "name": "tablebook",
+  "version": "2.0.0",
+  "description": "TableBook – ռեստորանում սեղանի ամրագրում՝ ադմին վահանակով",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "reset-admin": "node server.js --reset-admin"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

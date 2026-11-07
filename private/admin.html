@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="hy">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>TableBook – Ադմին վահանակ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+Armenian:wght@300;400;500&family=Noto+Serif+Armenian:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="monogram">TB</span>
+      <span class="gold-text">Table<b>Book</b></span>
+    </div>
+    <nav class="nav">
+      <a class="navlink" href="/">← Կայք</a>
+      <span class="user" id="userName"></span>
+      <button class="btn ghost small" id="logoutBtn">Ելք</button>
+    </nav>
+  </header>
+
+  <div class="admin-layout">
+    <aside class="side">
+      <div class="side-title">Ադմին վահանակ</div>
+      <button class="active" data-section="overview">Ամփոփում</button>
+      <button data-section="reservations">Ամրագրումներ</button>
+      <button data-section="restaurants">Ռեստորաններ</button>
+      <button data-section="menu">Ճաշացանկ</button>
+      <button data-section="users">Օգտատերեր</button>
+      <button data-section="settings">Կարգավորումներ</button>
+    </aside>
+
+    <main class="admin-main">
+      <!-- Ամփոփում -->
+      <section data-panel="overview">
+        <div class="ornament left">Այսօր</div>
+        <h2 id="todayTitle">Ամփոփում</h2>
+        <div class="stats mt" id="stats"></div>
+        <div class="card framed mt">
+          <h3>Այսօրվա ամրագրումները</h3>
+          <div class="tbl-wrap" id="todayList"></div>
+        </div>
+      </section>
+
+      <!-- Ամրագրումներ -->
+      <section data-panel="reservations" class="hidden">
+        <div class="ornament left">Կառավարում</div>
+        <h2>Բոլոր ամրագրումները</h2>
+        <div class="card framed mt">
+          <form class="filters" id="resFilters">
+            <label>Ամսաթիվ <input type="date" name="date"></label>
+            <label>Ռեստորան <select name="restaurant" data-rest-select="all"></select></label>
+            <label>Կարգավիճակ
+              <select name="status">
+                <option value="">Բոլորը</option>
+                <option value="active">Ակտիվ</option>
+                <option value="done">Կայացած</option>
+                <option value="noshow">Չներկայացավ</option>
+                <option value="cancelled">Չեղարկված</option>
+              </select>
+            </label>
+            <label>Որոնում <input type="search" name="q" placeholder="անուն, էլ. փոստ, հեռախոս"></label>
+          </form>
+        </div>
+        <div class="card mt">
+          <div class="tbl-wrap" id="resList"></div>
+        </div>
+      </section>
+
+      <!-- Ռեստորաններ -->
+      <section data-panel="restaurants" class="hidden">
+        <div class="ornament left">Կառավարում</div>
+        <h2>Ռեստորաններ</h2>
+        <div class="card framed mt">
+          <div class="subhead">
+            <h3 id="restFormTitle">Նոր ռեստորան</h3>
+            <button type="button" class="btn ghost small hidden" id="restFormCancel">Չեղարկել խմբագրումը</button>
+          </div>
+          <form id="restForm" class="form-grid" novalidate>
+            <label>Անվանում * <input name="name" required maxlength="80" placeholder="օր.՝ Սևան"></label>
+            <label>Հեռախոս <input name="phone" maxlength="40" placeholder="+374 10 000 000"></label>
+            <label class="full">Հասցե <input name="address" maxlength="160" placeholder="Փողոց, շենք, քաղաք"></label>
+            <label class="full">Նկարագրություն <textarea name="description" rows="2" maxlength="500"></textarea></label>
+            <label class="full">Նկարի հղում (URL) <input name="image" maxlength="500" placeholder="https://..."></label>
+            <label>Բացվում է <input type="time" name="open_time" value="12:00" required></label>
+            <label>Փակվում է <input type="time" name="close_time" value="23:00" required></label>
+            <p class="error full" id="restError"></p>
+            <div class="form-actions full">
+              <button class="btn primary" type="submit" id="restSubmit">Ավելացնել ռեստորան</button>
+            </div>
+          </form>
+          <p class="hint mt" style="text-align:left">Նոր ռեստորանի համար ավտոմատ ստեղծվում են 12 սեղան, որոնք կարող եք փոխել ներքևում։</p>
+        </div>
+        <div class="card mt">
+          <h3>Բոլոր ռեստորանները</h3>
+          <div id="restList"></div>
+        </div>
+        <div class="card framed mt hidden" id="tablesCard">
+          <div class="subhead"><h3 id="tablesTitle">Սեղաններ</h3></div>
+          <div class="tchips" id="tablesList"></div>
+          <form class="inline-form" id="tableForm" novalidate>
+            <label>Կոդ <input name="code" required maxlength="10" placeholder="օր.՝ V1"></label>
+            <label>Տեղեր <input type="number" name="seats" min="1" max="12" value="4" required></label>
+            <label>Գոտի
+              <select name="area">
+                <option value="inside">Սրահ</option>
+                <option value="window">Պատուհանի մոտ</option>
+                <option value="terrace">Տեռաս</option>
+              </select>
+            </label>
+            <button class="btn primary small" type="submit">Ավելացնել սեղան</button>
+          </form>
+          <p class="error" id="tableError"></p>
+        </div>
+      </section>
+
+      <!-- Ճաշացանկ -->
+      <section data-panel="menu" class="hidden">
+        <div class="ornament left">Կառավարում</div>
+        <h2>Ճաշացանկ</h2>
+        <div class="card framed mt">
+          <label style="max-width:360px">Ռեստորան <select id="menuRest" data-rest-select="one"></select></label>
+        </div>
+        <div class="card framed mt">
+          <div class="subhead">
+            <h3 id="dishFormTitle">Նոր ուտեստ</h3>
+            <button type="button" class="btn ghost small hidden" id="dishFormCancel">Չեղարկել խմբագրումը</button>
+          </div>
+          <form id="dishForm" class="form-grid" novalidate>
+            <label>Անվանում * <input name="name" required maxlength="80" placeholder="օր.՝ Տոլմա"></label>
+            <label>Գին (֏) * <input type="number" name="price" min="0" step="100" required placeholder="3500"></label>
+            <label>Կատեգորիա
+              <select name="category">
+                <option value="starter">Նախուտեստ</option>
+                <option value="main" selected>Հիմնական ուտեստ</option>
+                <option value="dessert">Աղանդեր</option>
+                <option value="drink">Ըմպելիք</option>
+              </select>
+            </label>
+            <label>Նկարի հղում (URL) <input name="image" maxlength="500" placeholder="https://..."></label>
+            <label class="full">Նկարագրություն <textarea name="description" rows="2" maxlength="300"></textarea></label>
+            <p class="error full" id="dishError"></p>
+            <div class="form-actions full">
+              <button class="btn primary" type="submit" id="dishSubmit">Ավելացնել ուտեստ</button>
+            </div>
+          </form>
+        </div>
+        <div class="card mt">
+          <h3 id="dishListTitle">Ուտեստներ</h3>
+          <div id="dishList"></div>
+        </div>
+      </section>
+
+      <!-- Օգտատերեր -->
+      <section data-panel="users" class="hidden">
+        <div class="ornament left">Կառավարում</div>
+        <h2>Օգտատերեր</h2>
+        <div class="card mt">
+          <div class="tbl-wrap" id="userList"></div>
+        </div>
+      </section>
+
+      <!-- Կարգավորումներ -->
+      <section data-panel="settings" class="hidden">
+        <div class="ornament left">Անվտանգություն</div>
+        <h2>Կարգավորումներ</h2>
+        <div class="card framed mt" style="max-width:560px">
+          <h3>Փոխել գաղտնաբառը</h3>
+          <form id="pwForm" class="form" novalidate>
+            <label>Ընթացիկ գաղտնաբառ <input type="password" name="current" required autocomplete="current-password"></label>
+            <label>Նոր գաղտնաբառ (առնվազն 8 նիշ) <input type="password" name="next" required minlength="8" autocomplete="new-password"></label>
+            <label>Կրկնել նոր գաղտնաբառը <input type="password" name="next2" required autocomplete="new-password"></label>
+            <p class="error" id="pwError"></p>
+            <button class="btn primary" type="submit">Պահպանել</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="/admin.js"></script>
+</body>
+</html>
